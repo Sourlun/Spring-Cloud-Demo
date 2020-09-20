@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-#    服务名称
+#    服务名称(很重要)
     name: cloud-payment-service
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -12,6 +12,21 @@ spring:
     username: root
     password: 123456
 
+
+eureka:
+  client:
+    # 表示是否要把自己注册到eureka, 默认true
+    register-with-eureka: true
+    # 是否从EurekaService抓取已有的注册信息, 默认是true
+      # 单节点无所谓, 集群必须设置true才能配合ribbon使用负载均衡
+    fetch-registry: true
+    service-url:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+      defaultZone: http://localhost:7001/eureka/
+
+
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.sour.springcloud.entities #所有entity类所在包
+
