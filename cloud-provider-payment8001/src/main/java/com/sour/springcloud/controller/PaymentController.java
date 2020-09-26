@@ -4,6 +4,7 @@ import com.sour.springcloud.entities.CommonResult;
 import com.sour.springcloud.entities.Payment;
 import com.sour.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,12 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
 
+    /**
+     *  获取配置文件的: 端口
+     */
+    @Value("${server.port}")
+    private String serverPort;
+
 
     /**
      *
@@ -38,9 +45,9 @@ public class PaymentController {
         log.info("****插入结果:" + result);
 
         if ( result > 0 ) {
-            return new CommonResult(200, "插入数据库成功", result);
+            return new CommonResult(200, "插入数据库成功,server.port: " + serverPort, result);
         }else {
-            return new CommonResult(444, "插入数据库失败!", null);
+            return new CommonResult(444, "插入数据库失败!server.port: " + serverPort, null);
         }
     }
 
@@ -53,9 +60,9 @@ public class PaymentController {
         log.info("****查询结果:" + payment);
 
         if ( payment != null ) {
-            return new CommonResult(200, "成功", payment);
+            return new CommonResult(200, "成功!server.port: " + serverPort, payment);
         }else {
-            return new CommonResult(444, "没有!", null);
+            return new CommonResult(444, "没有!server.port: " + serverPort, null);
         }
     }
 
