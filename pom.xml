@@ -15,6 +15,7 @@
     <module>cloud-consumer-order80</module>
       <module>cloud-api-commons</module>
       <module>cloud-eureka-server7001</module>
+      <module>cloud-eureka-service7002</module>
   </modules>
 
   <!-- packaging pom 总工程-->
