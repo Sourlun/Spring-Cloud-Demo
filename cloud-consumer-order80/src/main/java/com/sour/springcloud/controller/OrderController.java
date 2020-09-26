@@ -20,7 +20,20 @@ import javax.annotation.Resource;
 @Slf4j
 public class OrderController {
 
-    public static final String PAYMENT_URL = "http://127.0.0.1:8001";
+    /**
+     *  这种写法是不经过eureka的, 是点对点
+     */
+//    public static final String PAYMENT_URL = "http://127.0.0.1:8001";
+
+
+    /**
+     * 连接到eureka的微服务
+     *  在eureka的管理网页找服务名称
+     *  记得在ApplicationContextConfig里面加上 @LoadBalanced // 负载均衡
+     *
+     *
+     */
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
 
     @Resource
