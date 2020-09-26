@@ -23,6 +23,9 @@ eureka:
     service-url:
       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址 (注册中心集群了,所以需要配置其他注册中心的地址)
       defaultZone: http://eureka7002.com:7002/eureka,http://eureka7002.com:7002/eureka
+  instance:
+    instance-id: payment8001
+    prefer-ip-address: true  # 访问路径显示ip地址
 
 
 
