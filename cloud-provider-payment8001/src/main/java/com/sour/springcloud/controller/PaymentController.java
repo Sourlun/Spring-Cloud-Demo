@@ -5,10 +5,13 @@ import com.sour.springcloud.entities.Payment;
 import com.sour.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  *
@@ -28,6 +31,14 @@ public class PaymentController {
      */
     @Value("${server.port}")
     private String serverPort;
+
+
+    /**
+     *  服务发现
+     *      在启动类加上@EnableDiscoveryClient才可以用
+     */
+    @Resource
+    private DiscoveryClient discoveryClient;
 
 
     /**
@@ -67,4 +78,38 @@ public class PaymentController {
     }
 
 
+
+    /**
+     *  获取服务信息
+     *
+     * @author xgl
+     * @date 2020/9/26 17:02
+     **/
+    @GetMapping(value = "/payment/discovery")
+    @ResponseBody
+    public Object discovery() {
+
+        List<String> services = discoveryClient.getServices();
+        for (String service : services) {
+            log.info("******service:" + service);
+        }
+        /**
+         * ******service:cloud-payment-service
+         * ******service:cloud-order-service
+         */
+
+
+        // 一个微服务下面的全部实例
+        List<ServiceInstance> discoveryClientInstances = discoveryClient.getInstances("cloud-payment-service");
+        for (ServiceInstance discoveryClientInstance : discoveryClientInstances) {
+            log.info( "***" + discoveryClientInstance.getServiceId()
+                    + "\t" + discoveryClientInstance.getHost()
+                    + "\t" + discoveryClientInstance.getUri() );
+        }
+        /**
+         *  ***CLOUD-PAYMENT-SERVICE	192.168.248.1	http://192.168.248.1:8001
+         *  ***CLOUD-PAYMENT-SERVICE	192.168.248.1	http://192.168.248.1:8002
+         */
+        return this.discoveryClient;
+    }
 }
