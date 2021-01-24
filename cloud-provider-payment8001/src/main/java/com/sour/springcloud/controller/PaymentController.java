@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -98,7 +99,6 @@ public class PaymentController {
          * ******service:cloud-order-service
          */
 
-
         // 一个微服务下面的全部实例
         List<ServiceInstance> discoveryClientInstances = discoveryClient.getInstances("cloud-payment-service");
         for (ServiceInstance discoveryClientInstance : discoveryClientInstances) {
@@ -112,4 +112,24 @@ public class PaymentController {
          */
         return this.discoveryClient;
     }
+
+
+    /**
+     *  模拟feign超时
+     *
+     * @author xgl
+     * @date 2021/1/24 18:05
+     **/
+    @GetMapping(value = "/payment/feign/timeout")
+    @ResponseBody
+    public String paymentFeignTimeout() {
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return serverPort;
+    }
+
+
 }

@@ -9,29 +9,26 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-consumer-order80</artifactId>
+    <artifactId>cloud-consumer-feign-order80</artifactId>
 
     <dependencies>
-        <!--包含了sleuth+zipkin-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-zipkin</artifactId>-->
-<!--        </dependency>-->
-
-        <!--eureka-client  客户端的注解  里面包括Ribbon负载均衡-->
+        <!--openfeign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!--eureka client-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
-        <!--引入自己定义的api通用包，可以使用Payment支付Entity-->
+        <!--引入自定义的api通用包，可以使用Payment支付Entity-->
         <dependency>
             <groupId>com.sour.springcloud</groupId>
             <artifactId>cloud-api-commons</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-<!--        图形化的监控-->
+        <!--web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,7 +37,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
+        <!--一般基础通用配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

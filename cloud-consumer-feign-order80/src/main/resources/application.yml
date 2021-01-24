@@ -1,0 +1,20 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址 (注册中心集群了,所以需要配置其他注册中心的地址)
+      defaultZone: http://eureka7002.com:7002/eureka,http://eureka7002.com:7002/eureka
+
+ribbon:
+  #  建立服务后, 从服务端读取到可用资源所用的时间
+  ReadTimeout: 5000
+  #  建立所用的时间(两端连接所用的时间)
+  ConnectTimeout: 5000
+
+logging:
+  level:
+#    feign日志以什么级别监控哪个接口
+    com.sour.springcloud.service.IPaymentFeignService: debug
